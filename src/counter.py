@@ -45,5 +45,5 @@ def get_counter(name):
     """delete a counter"""
     app.logger.info(f"Request to delete counter: {name}")
 
-    if name in not COUNTERS:
+    if name not in COUNTERS:
         return {name: COUNTERS[name]}, status.HTTP_204_NO_CONTENT
