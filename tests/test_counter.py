@@ -20,6 +20,7 @@ from src.counter import app
 # we need to import the file that contains the status codes
 from src import status
 
+
 class CounterTest(TestCase):
     """Counter tests"""
     def setUp(self):
@@ -56,7 +57,7 @@ class CounterTest(TestCase):
         result = client.post('/counters/laugh')
         self.assertEqual(result.status_code, status.HTTP_201_CREATED)
 
-        baseline = result.get_json()['laugh']
+        result = result.get_json()['laugh']
         result = self.client.get('/counters/laugh')
 
         self.assertEqual(result.status_code, status.HTTP_200_OK)
