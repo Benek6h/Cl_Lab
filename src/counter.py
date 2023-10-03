@@ -17,7 +17,7 @@ def create_counter(name):
     global COUNTERS
 
     if name in COUNTERS:
-        return {"Message":f"Counter {name} already exists"}, status.HTTP_409_CONFLICT
+        return {"Message": f"Counter {name} already exists"}, status.HTTP_409_CONFLICT
 
     COUNTERS[name] = 0
     return {name: COUNTERS[name]}, status.HTTP_201_CREATED
@@ -27,10 +27,8 @@ def update_counter(name):
     """Update a counter"""
     app.logger.info(f"Request to update counter: {name}")
 
-    #if name in COUNTERS:
     COUNTERS[name] = COUNTERS[name] + 1
     return {name: COUNTERS[name]}, status.HTTP_200_OK
-    #return {name: COUNTERS[name]}, status.HTTP_404_NOT_FOUND
 
 @app.route('/counters/<name>', methods=['GET'])
 def get_counter(name):
@@ -41,9 +39,11 @@ def get_counter(name):
         return {name: COUNTERS[name]}, status.HTTP_200_OK
         
 @app.route('/counters/<name>', methods=['DELETE'])
-def get_counter(name):
+def delete_counter(name):
     """delete a counter"""
     app.logger.info(f"Request to delete counter: {name}")
 
-    if name not in COUNTERS:
-        return {name: COUNTERS[name]}, status.HTTP_204_NO_CONTENT
+    if name in COUNTERS:
+        del COUNTERS[name]
+        return {"Message": f"Counter {name} has been deleted"}, status.HTTP_204_NO_CONTENT
+    return {"Message": f"Counter {name} does not exist"}, status.HTTP_404_NOT_FOUND

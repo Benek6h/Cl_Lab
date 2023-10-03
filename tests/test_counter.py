@@ -68,11 +68,12 @@ class CounterTest(TestCase):
         result = client.post('/counters/love')
         self.assertEqual(result.status_code, status.HTTP_201_CREATED)
 
+        # check if deleted
         result = result.get_json()['love']
-        result = self.client.get('/counters/love')
-
-        self.assertEqual(result.status_code, status.HTTP_200_OK)
-
         result = self.client.delete('/counters/love')
-
         self.assertEqual(result.status_code, status.HTTP_204_NO_CONTENT)
+
+
+        # check if actually deleted
+        result = self.client.delete('/counters/love')
+        self.assertEqual(result.status_code, status.HTTP_404_NOT_FOUND)
