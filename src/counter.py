@@ -27,10 +27,10 @@ def update_counter(name):
     """Update a counter"""
     app.logger.info(f"Request to update counter: {name}")
 
-    if name in COUNTERS:
-        COUNTERS[name] = COUNTERS[name] + 1
-        return {name: COUNTERS[name]}, status.HTTP_200_OK
-    return {name: COUNTERS[name]}, status.HTTP_404_NOT_FOUND
+    #if name in COUNTERS:
+    COUNTERS[name] = COUNTERS[name] + 1
+    return {name: COUNTERS[name]}, status.HTTP_200_OK
+    #return {name: COUNTERS[name]}, status.HTTP_404_NOT_FOUND
 
 @app.route('/counters/<name>', methods=['GET'])
 def get_counter(name):
